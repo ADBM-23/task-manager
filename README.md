@@ -4,17 +4,21 @@ Aplicación full-stack de gestión de tareas (monorepo) con:
 - *Backend*: Node.js/Express REST API con base de datos MySQL
 - *Frontend*: Angular 21 standalone con Material Design
 - *Base de datos*: MySQL 8+ con una tabla tasks
+  
 ---
 
 ## Requisitos previos
+
 Antes de ejecutar el proyecto, asegúrate de tener instalado:
 - Node.js
 - npm
 - MySQL 8+
 - Git
+- 
 ---
 
 ## Comandos de desarrollo
+
 Terminal VS CODE
 git clone ->  https://github.com/ADBM-23/task-manager.git  -
 cd task-manager
@@ -22,6 +26,7 @@ cd task-manager
 ## Instalación de MySQL
 
 ### macOS
+
 bash
 # Opción 1: Homebrew
 brew install mysql
@@ -29,10 +34,12 @@ brew services start mysql
 mysql_secure_installation  # Opcional: asegurar la instalación
 
 # Opción 2: Instalador desde https://dev.mysql.com/downloads/mysql/
-# Selecciona macOS, descarga el .dmg y sigue el instalador
+  Selecciona macOS, descarga el .dmg y sigue el instalador
 
 ### Windows
+
 bash
+
 # Opción 1: MySQL Installer (recomendado)
 # Descarga desde https://dev.mysql.com/downloads/installer/
 # Ejecuta mysql-installer-community-*.exe y sigue el asistente
@@ -41,34 +48,43 @@ bash
 
 # Después de instalar, inicia el servicio:
 net start MySQL80
+
 ### Verificar si root tiene contraseña
 Intenta conectarte sin contraseña:
+
 bash
 mysql -u root
 - Si entra directamente → *no tiene contraseña*
 - Si pide contraseña o da error de acceso → *sí tiene contraseña*
 
+
 # Creacion de la base de datos
+
 my sql -u root -p <database.sql
 (se puede usar programa como Workbench)
 
+
 ### Backend
+
 bash
 cd backend       ó     # abrir la terminal dentro de la carpeta backend
 npm install            # Instalar las dependencias
 npm install express mysql2 cors dotenv  (asegurar que esten todas las dependencias)
 node server.js         # Iniciar node  http://localhost:3000
 
+
 ### Frontend (Angular)
+
 bash
 npm install -g @angular/cli  #abrir terminal y instalar
 cd frontend            # luego, dentro de la carpeta frontend abrir la terminal
 ng add @angular/material  #tras ponerlo en la terminal, escoger color - yes - yes
 npm serve              # Inicia el servidor en http://localhost:4200
 
-
 ---
+
 ### Variables de entorno
+
 Crea un archivo .env en el directorio backend/:
 DB_HOST=localhost
 DB_USER=your_user    (normalmente es root)
@@ -77,9 +93,10 @@ DB_NAME=task_manager
 DB_PORT=3306
 PORT=3000
 
-
 ---
+
 ## Arquitectura
+
 ### Backend (MVC + Services)
 Request → Routes → Controllers → Services → Database
 
@@ -102,6 +119,7 @@ Angular 21 usa standalone components (sin NgModule):
 | Routing | frontend/src/app/app.routes.ts | Navegación (/, /tasks, /public-api) |
 
 ---
+
 ## API Endpoints
 Base URL: http://localhost:3000/api
 
