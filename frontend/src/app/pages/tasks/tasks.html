@@ -1,37 +1,98 @@
-<header class="topbar">
-  <div>
-    <h1>Bienvenido, Usuario</h1>
-    <p>Administra tus tareas de forma simple y eficiente</p>
+<section class="tasks-page">
+  <div class="page-header">
+    <div>
+      <h1>Gestión de tareas</h1>
+      <p class="page-subtitle">Administra y organiza tus tareas</p>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      Nueva tarea
+    </button>
   </div>
 
-  <div class="topbar-actions">
-    <button class="btn btn-secondary">Filtrar</button>
-    <button class="btn btn-primary">Nueva tarea</button>
-  </div>
-</header>
+  <div class="summary-cards">
+    <div class="summary-card">
+      <span class="summary-label">Total</span>
+      <strong>{{ tasks.length }}</strong>
+    </div>
 
-<section class="stats-grid">
-  <div class="stat-card">
-    <span>Total tareas</span>
-    <h3>24</h3>
-    <p>Gestión general del día</p>
-  </div>
+    <div class="summary-card">
+      <span class="summary-label">Pendientes</span>
+      <strong>{{ pendingCount }}</strong>
+    </div>
 
-  <div class="stat-card">
-    <span>Pendientes</span>
-    <h3>10</h3>
-    <p>Tareas por completar</p>
-  </div>
+    <div class="summary-card">
+      <span class="summary-label">En progreso</span>
+      <strong>{{ inProgressCount }}</strong>
+    </div>
 
-  <div class="stat-card">
-    <span>En progreso</span>
-    <h3>8</h3>
-    <p>Actualmente activas</p>
+    <div class="summary-card">
+      <span class="summary-label">Completadas</span>
+      <strong>{{ completedCount }}</strong>
+    </div>
   </div>
 
-  <div class="stat-card">
-    <span>Completadas</span>
-    <h3>6</h3>
-    <p>Objetivos terminados</p>
+  <div class="table-card">
+    <div class="table-card-header">
+      <div>
+        <h2>Tareas registradas</h2>
+        <p>{{ tasks.length }} tareas en total</p>
+      </div>
+    </div>
+
+    <div class="table-wrapper" *ngIf="tasks.length > 0; else emptyBlock">
+      <table mat-table [dataSource]="tasks" class="tasks-table">
+
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef>Título</th>
+          <td mat-cell *matCellDef="let task">{{ task.titulo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let task">{{ task.descripcion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let task">
+            <mat-chip [ngStyle]="getChipStyle(task.estado)">
+              {{ task.estado }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha_creacion">
+          <th mat-header-cell *matHeaderCellDef>Fecha creación</th>
+          <td mat-cell *matCellDef="let task">
+            {{ task.fecha_creacion | date:'short' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let task">
+            <button mat-icon-button color="primary" (click)="openEditDialog(task)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" (click)="deleteTask(task.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <ng-template #emptyBlock>
+      <div class="empty-state">
+        <mat-icon>assignment</mat-icon>
+        <h3>No hay tareas registradas</h3>
+        <p>Crea tu primera tarea para comenzar a organizarte.</p>
+      </div>
+    </ng-template>
   </div>
 </section>

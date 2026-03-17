@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,57 +20,12 @@ import { TaskDialogComponent } from './task-dialog/task-dialog';
     MatIconModule,
     DatePipe
   ],
-  template: `
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-      <h2>Gestión de tareas</h2>
-      <button mat-raised-button color="primary" (click)="openCreateDialog()">Nueva tarea</button>
-    </div>
-
-    <table mat-table [dataSource]="tasks" class="mat-elevation-z2" style="width: 100%;">
-      <ng-container matColumnDef="titulo">
-        <th mat-header-cell *matHeaderCellDef>Título</th>
-        <td mat-cell *matCellDef="let task">{{ task.titulo }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="descripcion">
-        <th mat-header-cell *matHeaderCellDef>Descripción</th>
-        <td mat-cell *matCellDef="let task">{{ task.descripcion }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef>Estado</th>
-        <td mat-cell *matCellDef="let task">
-          <mat-chip [ngStyle]="getChipStyle(task.estado)">
-            {{ task.estado }}
-          </mat-chip>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="fecha_creacion">
-        <th mat-header-cell *matHeaderCellDef>Fecha creación</th>
-        <td mat-cell *matCellDef="let task">{{ task.fecha_creacion | date:'short' }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let task">
-          <button mat-icon-button color="primary" (click)="openEditDialog(task)">
-            <mat-icon>edit</mat-icon>
-          </button>
-
-          <button mat-icon-button color="warn" (click)="deleteTask(task.id!)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  `
+  templateUrl: './tasks.html',
+  styleUrls: ['./tasks.css']
 })
 export class TasksComponent implements OnInit {
   private taskService = inject(TaskService);
+  private cdr = inject(ChangeDetectorRef);
   private dialog = inject(MatDialog);
 
   tasks: Task[] = [];
@@ -78,16 +33,23 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTasks();
+    this.cdr.detectChanges();
   }
 
-  loadTasks() {
+  loadTasks(): void {
     this.taskService.getTasks().subscribe({
-      next: (data) => this.tasks = data,
-      error: (err) => console.error('Error al cargar tareas', err)
-    });
+      next: (data) => {
+        this.tasks = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error al cargar tareas', err);
+      this.cdr.detectChanges();
+  }
+  });
   }
 
-  openCreateDialog() {
+  openCreateDialog(): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '500px',
       data: { mode: 'create' }
@@ -100,7 +62,7 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  openEditDialog(task: Task) {
+  openEditDialog(task: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '500px',
       data: { mode: 'edit', task }
@@ -113,7 +75,7 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  deleteTask(id: number) {
+  deleteTask(id: number): void {
     const confirmacion = confirm('¿Deseas eliminar esta tarea?');
     if (!confirmacion) return;
 
@@ -121,14 +83,28 @@ export class TasksComponent implements OnInit {
   }
 
   getChipStyle(estado: string) {
-    if (estado === 'pendiente') {
+    const estadoNormalizado = estado?.toLowerCase().trim();
+
+    if (estadoNormalizado === 'pendiente') {
       return { background: '#ffe082', color: '#000' };
     }
 
-    if (estado === 'en progreso') {
+    if (estadoNormalizado === 'en progreso') {
       return { background: '#81d4fa', color: '#000' };
     }
 
     return { background: '#a5d6a7', color: '#000' };
+  }
+
+  get pendingCount(): number {
+    return this.tasks.filter(task => task.estado?.toLowerCase().trim() === 'pendiente').length;
+  }
+
+  get inProgressCount(): number {
+    return this.tasks.filter(task => task.estado?.toLowerCase().trim() === 'en progreso').length;
+  }
+
+  get completedCount(): number {
+    return this.tasks.filter(task => task.estado?.toLowerCase().trim() === 'completada').length;
   }
 }
