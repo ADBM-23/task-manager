@@ -14,7 +14,6 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 - npm
 - MySQL 8+
 - Git
-- 
 ---
 
 ## Comandos de desarrollo
@@ -28,9 +27,9 @@ cd task-manager
 ## macOS
 
 # Opción 1: Homebrew
-brew install mysql
-brew services start mysql
-mysql_secure_installation  # Opcional: asegurar la instalación
+- brew install mysql
+- brew services start mysql
+- mysql_secure_installation          # Opcional: asegurar la instalación
 
 # Opción 2: Instalador desde https://dev.mysql.com/downloads/mysql/
   Selecciona macOS, descarga el .dmg y sigue el instalador
@@ -38,64 +37,60 @@ mysql_secure_installation  # Opcional: asegurar la instalación
 ## Windows
 
 # Opción 1: MySQL Installer (recomendado)
-# Descarga desde https://dev.mysql.com/downloads/installer/
-# Ejecuta mysql-installer-community-*.exe y sigue el asistente
-# Selecciona "Developer Default" o "Server only" 
-# Preferencia escoger sin contraseña
+- Descarga desde https://dev.mysql.com/downloads/installer/
+- Ejecuta mysql-installer-community-*.exe y sigue el asistente
+- Selecciona "Developer Default" o "Server only" 
+- Preferencia escoger sin contraseña
 
-# Después de instalar, inicia el servicio:
-net start MySQL80
+# Después de instalar, inicia el servicio: net start MySQL80
 
 ### Verificar si root tiene contraseña
 Intenta conectarte sin contraseña:
 
-bash
-mysql -u root
+- mysql -u root
 - Si entra directamente → *no tiene contraseña*
 - Si pide contraseña o da error de acceso → *sí tiene contraseña*
 
 
 # Creacion de la base de datos
 
-my sql -u root -p <database.sql
-(se puede usar programa como Workbench)
+- my sql -u root -p <database.sql        (se puede usar programa como Workbench)
 
 
 ### Backend
 
-bash
-cd backend       ó     # abrir la terminal dentro de la carpeta backend
-npm install            # Instalar las dependencias
-npm install express mysql2 cors dotenv  (asegurar que esten todas las dependencias)
-node server.js         # Iniciar node  http://localhost:3000
+- bash
+- cd backend       ó     # abrir la terminal dentro de la carpeta backend
+- npm install            # Instalar las dependencias
+- npm install express mysql2 cors dotenv  (asegurar que esten todas las dependencias)
+- node server.js         # Iniciar node  http://localhost:3000
 
 
 ### Frontend (Angular)
 
-bash
-npm install -g @angular/cli  #abrir terminal y instalar
-cd frontend            # luego, dentro de la carpeta frontend abrir la terminal
-ng add @angular/material  #tras ponerlo en la terminal, escoger color - yes - yes
-npm serve              # Inicia el servidor en http://localhost:4200
+- bash
+- npm install -g @angular/cli  #abrir terminal y instalar
+- cd frontend            # luego, dentro de la carpeta frontend abrir la terminal
+- ng add @angular/material  #tras ponerlo en la terminal, escoger color - yes - yes
+- npm serve              # Inicia el servidor en http://localhost:4200
 
 ---
 
 ### Variables de entorno
-
 Crea un archivo .env en el directorio backend/:
-DB_HOST=localhost
-DB_USER=your_user    (normalmente es root)
-DB_PASSWORD=your_password  (si no hay contraseña se deja vacio)
-DB_NAME=task_manager
-DB_PORT=3306
-PORT=3000
+- DB_HOST=localhost
+- DB_USER=your_user    (normalmente es root)
+- DB_PASSWORD=your_password  (si no hay contraseña se deja vacio)
+- DB_NAME=task_manager
+- DB_PORT=3306
+- PORT=3000
 
 ---
 
 ## Arquitectura
 
 ### Backend (MVC + Services)
-Request → Routes → Controllers → Services → Database
+- Request → Routes → Controllers → Services → Database
 
 | Capa | Archivo | Responsabilidad |
 |------|---------|-----------------|
@@ -106,7 +101,7 @@ Request → Routes → Controllers → Services → Database
 
 
 ### Frontend (Standalone Components)
-Angular 21 usa standalone components (sin NgModule):
+- Angular 21 usa standalone components (sin NgModule):
 
 | Componente | Archivo | Responsabilidad |
 |------------|---------|-----------------|
@@ -118,7 +113,7 @@ Angular 21 usa standalone components (sin NgModule):
 ---
 
 ## API Endpoints
-Base URL: http://localhost:3000/api
+- Base URL: http://localhost:3000/api
 
 | Método | Ruta | Descripción |
 |--------|------|-------------|
@@ -132,25 +127,32 @@ Base URL: http://localhost:3000/api
 ## Patrones clave
 
 ### Inyección de dependencias
-El frontend usa la función moderna inject() de Angular:
-typescript
-private taskService = inject(TaskService);
-private dialog = inject(MatDialog);
+- El frontend usa la función moderna inject() de Angular:
+- typescript
+- private taskService = inject(TaskService);
+- private dialog = inject(MatDialog);
+- 
+---
 
 ### Conexión a la base de datos
-El backend usa mysql2 con promise wrapper para async/await:
-javascript
-const db = mysql.createPool({...});
-module.exports = db.promise();
+- El backend usa mysql2 con promise wrapper para async/await:
+- javascript
+- const db = mysql.createPool({...});
+- module.exports = db.promise();
+- 
+---
 
 ### CORS
 El backend habilita CORS en backend/src/app.js para permitir conexiones del frontend.
+
+---
 
 ### Manejo de errores
 Los controllers usan bloques try-catch con códigos HTTP apropiados:
 - 400 — validación fallida
 - 404 — recurso no encontrado
 - 500 — error del servidor
+
 ---
 
 ## Notas importantes
@@ -159,3 +161,4 @@ Los controllers usan bloques try-catch con códigos HTTP apropiados:
 - Las consultas usan *prepared statements* para prevenir SQL injection
 - Los valores de estado deben coincidir con el enum: 'pendiente', 'en progreso', 'completada'
 - El proyecto incluye una página demo de Public API que consume JSONPlaceholder
+---
