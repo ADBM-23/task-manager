@@ -1,0 +1,18 @@
+.dialog-content {
+  padding-top: 8px;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 420px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  padding: 8px 24px 16px;
+}

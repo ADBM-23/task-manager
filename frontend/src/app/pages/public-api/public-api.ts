@@ -7,20 +7,8 @@ import { PublicApiService, PublicUser } from '../../services/public-api';
   selector: 'app-public-api',
   standalone: true,
   imports: [CommonModule, MatCardModule],
-  template: `
-    <h2>Consumo de API pública</h2>
-    <p>Usuarios obtenidos desde jsonplaceholder</p>
-
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px;">
-      <mat-card *ngFor="let user of users">
-        <mat-card-title>{{ user.name }}</mat-card-title>
-        <mat-card-content>
-          <p><strong>Email:</strong> {{ user.email }}</p>
-          <p><strong>Teléfono:</strong> {{ user.phone }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  `
+templateUrl: './public-api.html',
+  styleUrls: ['./public-api.css']
 })
 export class PublicApiComponent implements OnInit {
   private publicApiService = inject(PublicApiService);

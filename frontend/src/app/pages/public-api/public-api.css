@@ -1,0 +1,122 @@
+.public-api-page {
+  padding: 32px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.page-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.api-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.api-card-header {
+  padding: 20px 24px 10px;
+}
+
+.api-card-header h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.api-card-header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  padding: 0 24px 24px;
+}
+
+.user-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.user-main h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+
+.username {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.user-info p {
+  margin: 0 0 10px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.user-info p:last-child {
+  margin-bottom: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: #6b7280;
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+  color: #374151;
+}
+
+.empty-state p {
+  margin: 0;
+}

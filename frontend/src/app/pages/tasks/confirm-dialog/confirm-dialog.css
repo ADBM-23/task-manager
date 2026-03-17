@@ -1,0 +1,34 @@
+.confirm-dialog {
+  padding: 8px 4px 4px;
+  min-width: 320px;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.dialog-header mat-icon {
+  color: #f59e0b;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dialog-message {
+  margin: 0 0 24px;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

@@ -9,8 +9,5 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class AppComponent {
-  title = 'task-manager';
-  toggleDarkMode() {
-  document.body.classList.toggle('dark-theme');
-}
+  title = 'task-manager';  
 }

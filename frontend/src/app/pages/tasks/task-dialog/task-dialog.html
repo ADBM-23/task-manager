@@ -1,1 +1,37 @@
-<p>task-dialog works!</p>
+<h2 mat-dialog-title>
+  {{ data.mode === 'edit' ? 'Editar tarea' : 'Nueva tarea' }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <div class="task-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="task.titulo" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea
+        matInput
+        rows="4"
+        [(ngModel)]="task.descripcion"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select [(ngModel)]="task.estado">
+        <mat-option value="pendiente">Pendiente</mat-option>
+        <mat-option value="en progreso">En progreso</mat-option>
+        <mat-option value="completada">Completada</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cerrar()">Cancelar</button>
+  <button mat-raised-button color="primary" type="button" (click)="guardar()">
+    Guardar
+  </button>
+</mat-dialog-actions>

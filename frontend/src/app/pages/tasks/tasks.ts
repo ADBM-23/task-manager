@@ -7,6 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { Task, TaskService } from '../../services/task';
 import { TaskDialogComponent } from './task-dialog/task-dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -75,12 +76,21 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  deleteTask(id: number): void {
-    const confirmacion = confirm('¿Deseas eliminar esta tarea?');
-    if (!confirmacion) return;
+deleteTask(id: number): void {
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    width: '400px',
+    data: {
+      title: 'Eliminar tarea',
+      message: '¿Deseas eliminar esta tarea? Esta acción no se puede deshacer.'
+    }
+  });
+
+  dialogRef.afterClosed().subscribe((confirmed) => {
+    if (!confirmed) return;
 
     this.taskService.deleteTask(id).subscribe(() => this.loadTasks());
-  }
+  });
+}
 
   getChipStyle(estado: string) {
     const estadoNormalizado = estado?.toLowerCase().trim();

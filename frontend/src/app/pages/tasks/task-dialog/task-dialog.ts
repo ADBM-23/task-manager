@@ -19,38 +19,9 @@ import { Task } from '../../../services/task';
     MatInputModule,
     MatButtonModule,
     MatSelectModule
-
   ],
-  template: `
-
-    <h2 mat-dialog-title>{{ data.mode === 'edit' ? 'Editar tarea' : 'Nueva tarea' }}</h2>
-
-    <mat-dialog-content>
-      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
-        <mat-label>Título</mat-label>
-        <input matInput [(ngModel)]="task.titulo">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 12px;">
-        <mat-label>Descripción</mat-label>
-        <textarea matInput rows="4" [(ngModel)]="task.descripcion"></textarea>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" style="width: 100%;">
-        <mat-label>Estado</mat-label>
-        <mat-select [(ngModel)]="task.estado">
-          <mat-option value="pendiente">Pendiente</mat-option>
-          <mat-option value="en progreso">En progreso</mat-option>
-          <mat-option value="completada">Completada</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-dialog-content>
-
-    <mat-dialog-actions align="end">
-      <button mat-button (click)="cerrar()">Cancelar</button>
-      <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
-    </mat-dialog-actions>
-  `
+  templateUrl: './task-dialog.html',
+  styleUrls: ['./task-dialog.css']
 })
 export class TaskDialogComponent {
   task: Task = {
@@ -68,11 +39,18 @@ export class TaskDialogComponent {
     }
   }
 
-  guardar() {
+  guardar(): void {
+    this.task.titulo = this.formatTitle(this.task.titulo);
     this.dialogRef.close(this.task);
   }
 
-  cerrar() {
+  cerrar(): void {
     this.dialogRef.close();
+  }
+
+  private formatTitle(value: string): string {
+    if (!value) return '';
+    const limpio = value.trim();
+    return limpio.charAt(0).toUpperCase() + limpio.slice(1);
   }
 }
