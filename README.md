@@ -44,20 +44,20 @@ cd task-manager
 
 # Después de instalar, inicia el servicio (power shell o terminal como administrador): 
 - net start MySQL80
-- (si ya esta funcionando no usar este siguiente paso)
-- & " ruta de acceso directo mysql.exe =/progam files/files/MySql/Mysql server 8/bin/mysql.exe " -u root -p
-  
-### Verificar si root tiene contraseña
-Intenta conectarte sin contraseña:
-
-- mysql -u root
-- Si entra directamente → *no tiene contraseña*
-- Si pide contraseña o da error de acceso → *sí tiene contraseña*
-
+- & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" --version "
+- & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p (oprimir enter si no tiene contraseña de mysql , si se puso, poner contraseña de mysql)
+- (si ya esta funcionando no usar siguientes pasos)
+- Abrir en explorador de archivos  C:\ProgramData\MySQL\MySQL Server 8.0\my.ini  (buscar port= 3306)
+- & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p -h 127.0.0.1 -P 3306
+- deberia aparecer: Welcome to the MySQL monitor
 
 # Creacion de la base de datos
-
-- my sql -u root -p <database.sql        (se puede copiar y pegar en la terminal o usar programa como Workbench)
+- database.dql       (se puede copiar y pegar en la terminal o usar programa como Workbench)
+- En la carpeta task-manager abrir terminal
+- Get-Content .\database.sql 
+- Get-Content .\database.sql | & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p -h 127.0.0.1 -P 3306
+- & "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p -h 127.0.0.1 -P 3307
+- show databases;
 
 ## Comandos de desarrollo
 ### Backend
@@ -85,7 +85,7 @@ Crea un archivo .env en el directorio backend/:
 - DB_USER=your_user    (normalmente es root)
 - DB_PASSWORD=your_password  (si no hay contraseña se deja vacio)
 - DB_NAME=task_manager
-- DB_PORT=3306
+- DB_PORT=3306          (port de base de datos)
 - PORT=3000
 
 ---
