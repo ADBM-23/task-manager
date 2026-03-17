@@ -25,9 +25,8 @@ cd task-manager
 
 ## Instalación de MySQL
 
-### macOS
+## macOS
 
-bash
 # Opción 1: Homebrew
 brew install mysql
 brew services start mysql
@@ -36,9 +35,7 @@ mysql_secure_installation  # Opcional: asegurar la instalación
 # Opción 2: Instalador desde https://dev.mysql.com/downloads/mysql/
   Selecciona macOS, descarga el .dmg y sigue el instalador
 
-### Windows
-
-bash
+## Windows
 
 # Opción 1: MySQL Installer (recomendado)
 # Descarga desde https://dev.mysql.com/downloads/installer/
