@@ -14,13 +14,13 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 - npm
 - MySQL 8+
 - Git
----
 
-## Comandos de desarrollo
-
+--
+## Clonacion repositorio
 Terminal VS CODE
 git clone ->  https://github.com/ADBM-23/task-manager.git  -
 cd task-manager
+--- 
 
 ## Instalación de MySQL
 
@@ -56,7 +56,7 @@ Intenta conectarte sin contraseña:
 
 - my sql -u root -p <database.sql        (se puede usar programa como Workbench)
 
-
+## Comandos de desarrollo
 ### Backend
 
 - bash
