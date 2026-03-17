@@ -36,14 +36,17 @@ cd task-manager
 
 ## Windows
 
-# Opción 1: MySQL Installer (recomendado)
+# MySQL Installer
 - Descarga desde https://dev.mysql.com/downloads/installer/
 - Ejecuta mysql-installer-community-*.exe y sigue el asistente
 - Selecciona "Developer Default" o "Server only" 
 - Preferencia escoger sin contraseña
 
-# Después de instalar, inicia el servicio: net start MySQL80
-
+# Después de instalar, inicia el servicio (power shell o terminal como administrador): 
+- net start MySQL80
+- (si ya esta funcionando no usar este siguiente paso)
+- & " ruta de acceso directo mysql.exe =/progam files/files/MySql/Mysql server 8/bin/mysql.exe " -u root -p
+  
 ### Verificar si root tiene contraseña
 Intenta conectarte sin contraseña:
 
@@ -54,7 +57,7 @@ Intenta conectarte sin contraseña:
 
 # Creacion de la base de datos
 
-- my sql -u root -p <database.sql        (se puede usar programa como Workbench)
+- my sql -u root -p <database.sql        (se puede copiar y pegar en la terminal o usar programa como Workbench)
 
 ## Comandos de desarrollo
 ### Backend
@@ -69,10 +72,10 @@ Intenta conectarte sin contraseña:
 ### Frontend (Angular)
 
 - bash
-- npm install -g @angular/cli  #abrir terminal y instalar
-- cd frontend            # luego, dentro de la carpeta frontend abrir la terminal
-- ng add @angular/material  #tras ponerlo en la terminal, escoger color - yes - yes
-- npm serve              # Inicia el servidor en http://localhost:4200
+- npm install -g @angular/cli  #abrir terminal en la carpeta frontend
+- ng serve              # Inicia el servidor en http://localhost:4200
+- (si hay algun problema intentar instalar angular material) 
+- ng add @angular/material  #tras ponerlo en la terminal, escoger yes - color de preferencia
 
 ---
 
